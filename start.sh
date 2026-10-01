@@ -44,7 +44,7 @@ if [ "$(id -u)" = 0 ]; then
     # Establish the default gateway profile's durable "running" intent, as the
     # hermes user so nothing it creates is root-owned. Returns immediately -
     # the gateway itself runs under s6.
-    s6-setuidgid hermes hermes gateway run
+    /command/s6-setuidgid hermes /opt/hermes/.venv/bin/hermes gateway run
 else
     hermes gateway run
 fi
