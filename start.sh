@@ -38,6 +38,14 @@ if [ -f /opt/data/config.yaml ] && grep -q 'thinking_config:' /opt/data/config.y
     echo "[railway-start] Removed thinking_config from config.yaml (Gemini REST API fix)"
 fi
 
+# Fix: Update openai-codex model name in config.yaml.
+# 'gpt-5.5' is not supported by the ChatGPT Codex endpoint.
+# 'o3' is the current default reasoning model available in ChatGPT.
+if [ -f /opt/data/config.yaml ] && grep -q 'model: gpt-5\.5' /opt/data/config.yaml; then
+    sed -i 's/model: gpt-5\.5/model: o3/g' /opt/data/config.yaml
+        echo "[railway-start] Updated Codex model: gpt-5.5 -> o3"
+        fi
+
 if [ "$(id -u)" = 0 ]; then
 # Files copied in from a local install (uid 501/staff on macOS) or created
 # by root end up read-only to the gateway, which runs as the unprivileged
